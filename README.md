@@ -1,8 +1,13 @@
-# capsula endoscópica 23-06-22
-
 página web explicativa del proyecto
 
-quiero desayunar
+# Índice 
+
+- Recopilación de datos 
+- Características descubiertas y implementadas
+- Visualización de datos
+- Pruebas de distintos modelos
+- Interpretación de resultados.
+
 
 
 You can use the [editor on GitHub](https://github.com/aran-ag/tutorialgithubpages/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
