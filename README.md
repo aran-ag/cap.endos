@@ -1,5 +1,7 @@
 página web explicativa del proyecto
 
+portatil trabajo 
+
 # Índice 
 
 - Recopilación de datos 
