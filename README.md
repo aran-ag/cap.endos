@@ -23,16 +23,9 @@ Empleo de CNN
 
 ## Fases:
 
-### 1. Preprocesado de datos:
-  - obtenció de los datos
-  - Prepocesado
-### 2. Fase CNN:
-  - construcción modelo
-  - entrenamiento del modelo
-  - validación del modelo
-  
-  
-### Preprocesado de datos:
+<img width="460" alt="2022-06-23 15_17_06-Image classification using CNN" src="https://user-images.githubusercontent.com/87124850/175308065-9bce77af-4cd9-4889-9f4f-7616fb8a0331.png">
+
+### Data:
  - división videos en frames
  - resize downscale images
  - One hot encoded
