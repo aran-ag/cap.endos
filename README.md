@@ -11,6 +11,12 @@ portatil trabajo
 - Interpretación de resultados.
 
 
+```
+código
+![Image](src)
+
+```
+
 
 You can use the [editor on GitHub](https://github.com/aran-ag/tutorialgithubpages/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
 
