@@ -1,3 +1,4 @@
+# capstone
 
 ## Puntos necesarios en el blog
 
@@ -18,6 +19,7 @@ Kvasir-Capsule Dataset
 
 Empleo de CNN
 
+<img width="460" alt="2022-06-23 15_17_06-Image classification using CNN" src="https://user-images.githubusercontent.com/87124850/175827498-a19bc99f-7d95-4a5b-abd9-f77617f72624.png">
 
 
 ## Orígen del dataset
