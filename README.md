@@ -1,15 +1,7 @@
-# capstone
-
-## Puntos necesarios en el blog
-
-1. Recopilación de datos 
-2. Características descubiertas y implementadas  _¿a qué se refiere?_
-3. Visualización de datos
-4. Pruebas de distintos modelos _¿aquí se refiere a probar el código con los distintos tipos de resampling metod que hay? twofold validation, percentatge split, cross-validation, bootstrap?_
-5. Interpretación de resultados.
-
+# Capsula endoscópica
 
 ## Descripción del project:
+
 
 Dado un video de una exploración endoscópica, detectar todos los frames donde se encuentra una anomalía (pólipos, sangre, úlceras, ...). 
 Cada una de las patologías detectadas contienen un conjunto pequeño de datos, lo que incrementa la complejidad del problema. 
@@ -69,6 +61,19 @@ Muestras de las imágenes que contiene el dataset
 El dataset sera preprocesado de dos maneras. En una se 
 categorias binomial (Normal y Anomalía) y multicategórica (14 categorias)
 La CNN se aplicará en el dataset preprocesado binomial y multicategórico. En cada apartado se 
+
+
+el preproceso se hace dentro de un imagedatagenerator propio de Tensorflow keras. se le añade la función de preporceso vgg16, la cual cambia el ordena de las bandas de color y hace un zero-centered a todos los píxeles.
+a parte de este preproceso, se reescala las imágenes a 28 x 28 píxeles. Luego se han asociado etíquetas en función de las categorías (vector [normal, anomalia])
+finalmente se define un batc_size en el que queremos que las imagenes entren al modelo.
+
+- noramlización de valores,vgg16
+- cambio de directorio
+- definimos reescalado 
+- en funcion de la subcarpeta dentro del directorio madre (antes definido, 2 categorias , 14 categoras)
+bacth size 2^7 (128), empaquetado 
+
+Con esto se genera un array que contienen sus imagenes  preprcesaads con sus etiquetas asociadas
 
 ## Arquitectura de los modelos a aplicar.
 
@@ -156,7 +161,7 @@ model = Sequential([
 
 
 ### Entrenamiento y Validación del modelo
-El modelo definido ahora se entrena con la función **fit()**. Para  su evaluación se usa la validación *Two- Fold*, la cual a partir de los datos originales crea dos subsets con el mismo peso. Estos subsets (split_0 y split_1) son usados para para entrenar y validar. Es decir, se entrena con split_0
+El modelo definido ahora se entrena con la función **fit()**. Para  su evaluación se usa la validación *Two- Fold*, la cual a partir de los datos originales crea dos subsets con el mismo peso. Estos subsets, `split_0` y `split_1`, son usados para para entrenar y validar. Es decir, se entrena con split_0
 
 
 ### Resultados y conclusiones
