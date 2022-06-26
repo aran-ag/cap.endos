@@ -24,13 +24,47 @@ Empleo de CNN
 de dónde se coge y de qué consta
 fotos
 
+_This is the official repository for the Kvasir-Capsule dataset, which is the largest publicly released PillCAM dataset. In total, the dataset contains 47,238 labeled images and 117 videos, where it captures anatomical landmarks and pathological and normal findings. The results is more than 4,741,621 images and video frames all together._
+
+_The full dataset can be dowloaded via: https://osf.io/dv2ag/_
+
+_The dataset can be split into three distinct parts; Labeled image data, labeled video data, and unlabaled video data. Each part is further described below._
+
+Labeled images In total, the dataset contains 47,238 labeled images stored using the PNG format. The images can be found in the images folder. The classes that each of the images belongs correspond to the folder they are stored. For example, the ’polyp’ folder contains all polyp images, and the ’Angiectasia’ folder contains all images of Angiectasia. The number of images per class is not balanced, which is a common challenge in the medical field because some findings occur more often than others. This adds an additional challenge for researchers since methods applied to the data should also be able to learn from a small amount of training data. The labeled images represent 14 different classes of findings. Furthermore, the labeled image data includes bounding box coordinates, which can be found in the metadata.csv file.
+
+Labeled videos The dataset contains a total of 43 labeled videos containing different findings and landmarks. This corresponds to approximately 19 hours of video and 1,955,675 video frames that can be converted to images if needed. Each video has been manually assessed by a medical professional working in the field of gastroenterology and resulted in a total of 47,238 annotated frames.
+
+Unlabeled videos In total, the dataset contains 74 unlabeled videos, which is equal to approximatley 25 hours of video and 2,785,829 video frames.
+
+Image Labels
+Kvasir-Capsule includes the follow image labels for the labeled part of the dataset:
+
+ID	Label
+0	Ampulla of Vater
+1	Angiectasia
+2	Blood - fresh
+3	Blood - hematin
+4	Erosion
+5	Erythema
+6	Foreign body
+7	Ileocecal valve
+8	Lymphangiectasia
+9	Normal clean mucosa
+10	Polyp
+11	Pylorus
+12	Reduced mucosal view
+13	Ulcer_
+
 ## Preprocesado del dataset
 
-Del dataset proporcionando solo se trabaja con "labelled images" la cual será nuestro set de datos. Esta elección se basa en que los datos fiables del ...
-Debido a que la única fuente fiable de información es la que prociona el metadata, se seleccionan solo los datos de image labelled, descartando unlabelled images y labelled videos. La primera no es util para métodos supervisados y la segunda ...
+Del dataset proporcionando solo se trabaja con "labelled images", el cual será nuestro set de datos base. Esta elección recae en que estos datos son los que aparecen en el metadata.csv indicando, frame por frame, su categorización y problemática por un profesional. 
 
-fotos iniciales, muestras
+_Labelled videos_ se descarta por no presentar imágenes de anomalias y _unlabelled images_ es descartada también porque la información que proporciona es poco útil para métodos de aprendizage supervisado.
 
+![image](https://user-images.githubusercontent.com/87124850/175823080-f8b023b2-8046-4d15-927c-a5a26c49dfbe.png)
+Muestras de las imágenes que contiene el dataset
+
+El dataset sera preprocesado de dos maneras. En una se 
 categorias binomial (Normal y Anomalía) y multicategórica (14 categorias)
 La CNN se aplicará en el dataset preprocesado binomial y multicategórico. En cada apartado se 
 
