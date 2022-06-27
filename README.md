@@ -1,4 +1,4 @@
-# Capsula endoscópica
+# Cápsula endoscópica
 
 ## Descripción del project:
 
@@ -13,75 +13,67 @@ Empleo de CNN
 
 <img width="460" alt="2022-06-23 15_17_06-Image classification using CNN" src="https://user-images.githubusercontent.com/87124850/175827498-a19bc99f-7d95-4a5b-abd9-f77617f72624.png">
 
+## Esquema 
+
+1 modelo CNN 
+selección de datos
+preprceso
+
 
 ## Orígen del dataset
-de dónde se coge y de qué consta
-fotos
 
-_This is the official repository for the Kvasir-Capsule dataset, which is the largest publicly released PillCAM dataset. In total, the dataset contains 47,238 labeled images and 117 videos, where it captures anatomical landmarks and pathological and normal findings. The results is more than 4,741,621 images and video frames all together._
+Kvasir-Capsule es el conjunto de datos original para el desarrollo de este proyecto. El cual es el conjunto de datos PillCAM más grande pubicado públicamente y proviene del repositorio oficial Open Science Framework (OSF). En total, contiene 47,238 imágenes etiquetadas y 117 videos, donde captura puntos de referencia anatómicos y hallazgos patológicos y normales. Generando más de 4,741,621 frames entre imágenes y videos. 
 
-_The full dataset can be dowloaded via: https://osf.io/dv2ag/_
+Puede ser descargado desde :
 
-_The dataset can be split into three distinct parts; Labeled image data, labeled video data, and unlabaled video data. Each part is further described below._
+            https://osf.io/dv2ag/wiki/home/
+            https://drive.google.com/drive/u/0/folders/18vEHN1CG7oNFKdT2NmhtJjrFhb3tLG1Z
+            https://datasets.simula.no/kvasir-capsule/
 
-Labeled images In total, the dataset contains 47,238 labeled images stored using the PNG format. The images can be found in the images folder. The classes that each of the images belongs correspond to the folder they are stored. For example, the ’polyp’ folder contains all polyp images, and the ’Angiectasia’ folder contains all images of Angiectasia. The number of images per class is not balanced, which is a common challenge in the medical field because some findings occur more often than others. This adds an additional challenge for researchers since methods applied to the data should also be able to learn from a small amount of training data. The labeled images represent 14 different classes of findings. Furthermore, the labeled image data includes bounding box coordinates, which can be found in the metadata.csv file.
+El conjunto de datos Kvasir-Capsule esta dividido en tres partes: imágenes etiquetadas, vídeos etiquetados y imágenes sin etiquetar. Cada parte se describe a continuación:
 
-Labeled videos The dataset contains a total of 43 labeled videos containing different findings and landmarks. This corresponds to approximately 19 hours of video and 1,955,675 video frames that can be converted to images if needed. Each video has been manually assessed by a medical professional working in the field of gastroenterology and resulted in a total of 47,238 annotated frames.
+- **Imágenes etiquetadas**, este grupo contiene 47,238 imágenes guardadas en formato PNG. En su carpeta, las imágenes se encuentran clasificadas en subcarpetas por tipo de hallazgo. El número de imágenes por clase no esta balanceado.Furthermore, the labeled image data includes bounding box coordinates, which can be found in the metadata.csv file. 
 
-Unlabeled videos In total, the dataset contains 74 unlabeled videos, which is equal to approximatley 25 hours of video and 2,785,829 video frames.
+- **Vídeos etiquetados**, este otro grupo contiene 43 videos, los cuales contienes diferentes puntos de referencia anatómicos y hallazgos patológicos y normales. Esto corresponde a aproximadamente 19 horas de video, 1,955,675 vframes, que pueden ser convertidos en imágenes si es necesario. Cada video ha sido manualmente evaluado por un profesional médico del campo de la gastroenterología resultando en 47,238 frames anotados.
 
-Image Labels
-Kvasir-Capsule includes the follow image labels for the labeled part of the dataset:
 
-ID	Label
-0	Ampulla of Vater
-1	Angiectasia
-2	Blood - fresh
-3	Blood - hematin
-4	Erosion
-5	Erythema
-6	Foreign body
-7	Ileocecal valve
-8	Lymphangiectasia
-9	Normal clean mucosa
-10	Polyp
-11	Pylorus
-12	Reduced mucosal view
-13	Ulcer_
+- **Vídeos sin etiquetar**, grupo que contiene 74 videos sin etiquetar, lo que son aproximadamente 25 horas de video y 2,785,829 frames de video.
 
-## Preprocesado del dataset
 
-Del dataset proporcionando solo se trabaja con "labelled images", el cual será nuestro set de datos base. Esta elección recae en que estos datos son los que aparecen en el metadata.csv indicando, frame por frame, su categorización y problemática por un profesional. 
+Del dataset orginal proporcionado, tal y como se describe, el grupo "videos_etiquetados" contiene 47,238 frames categorizados por un profesional, que son los mismos que encontramos en el grupo "imágenes_etiquetadas". Con lo que se concluye que el resto de datos de "videos_etiquetados" contiene tejido sin anomalías (mucosas, estructuras anatómicas, ...) y por tanto, "imágenes_etiquetadas" sera nuestro conjunto de datos a trabajar
 
-_Labelled videos_ se descarta por no presentar imágenes de anomalias y _unlabelled images_ es descartada también porque la información que proporciona es poco útil para métodos de aprendizage supervisado.
+La carpeta "videos_sin_etiquetar" se descarta debido a que la información que contiene es poco útil para métodos de aprendizage supervisado que es el que usaremos en nuestro caso.
 
 ![image](https://user-images.githubusercontent.com/87124850/175823080-f8b023b2-8046-4d15-927c-a5a26c49dfbe.png)
 Muestras de las imágenes que contiene el dataset
 
-El dataset sera preprocesado de dos maneras. En una se 
-categorias binomial (Normal y Anomalía) y multicategórica (14 categorias)
-La CNN se aplicará en el dataset preprocesado binomial y multicategórico. En cada apartado se 
+## Preprocesado del dataset
 
+Una vez determinado el conjunto de datos inicial a trabajar ("imágenes_etiquetadas") se procede al preprocesado de imágenes antes de aplicar nuestro modelo directamente.
+Este prepocesado consta de los siguientes pasos:
 
-el preproceso se hace dentro de un imagedatagenerator propio de Tensorflow keras. se le añade la función de preporceso vgg16, la cual cambia el ordena de las bandas de color y hace un zero-centered a todos los píxeles.
-a parte de este preproceso, se reescala las imágenes a 28 x 28 píxeles. Luego se han asociado etíquetas en función de las categorías (vector [normal, anomalia])
-finalmente se define un batc_size en el que queremos que las imagenes entren al modelo.
+- **noramlización de valores**, mediante la clase _ImageDataGenerator_ propia de Tensorflow Keras y la función de preproceso, _vgg16_. Este paso se encarga de cambiar el orden de bandas de color y hacer un zero-centered a todos los píxeles,  **---DESARROLLAR---**
+```
+preprocessing_function = tf.keras.application.vgg16.preprocess_input
+```
+- **Cambio de directorio**,
+- **Reescalado**, se define el rescalado de las imágenes a 28x28 píxeles. 
+- **Categorización**, en este paso se han asociado etiquetas en función de las categorías. Cabe decir en este punto que nosotros hacemos dos categorias generales. Una binomial que define la imagen en normal o anomalía (vector [normal, anomalia]). Y otra que divide entre las 14 categorías establecidas.
+- **Batch size**, se define el empaquetamiento de las imágenes salientes en 128 (2^7)
 
-- noramlización de valores,vgg16
-- cambio de directorio
-- definimos reescalado 
-- en funcion de la subcarpeta dentro del directorio madre (antes definido, 2 categorias , 14 categoras)
-bacth size 2^7 (128), empaquetado 
+Con esto se genera un array que contiene las imagenes preprocesadas con sus etiquetas asociadas, conjunto de datos listo para aplicar los modelos a comprobar.
 
-Con esto se genera un array que contienen sus imagenes  preprcesaads con sus etiquetas asociadas
+![Uploading resultado_pretratamiento_imagenes.PNG…]()
+Ejemplo del resultado de preprocesar una imagen mediantes los pasos indicados.
+
 
 ## Arquitectura de los modelos a aplicar.
 
 Se emplearán dos modelos principales:
 
-- **Modelo 0**. Modelo sencillo que no implementa convoluciones y, por tanto, no es capaz de definir formas y colores con lo que no es aplicable al objetivo planteado. Sin embargo, creemos que es interesante presentarlo.  
+- **mD**. Modelo sencillo que no implementa convoluciones y, por tanto, no es capaz de definir formas y colores con lo que no es aplicable al objetivo planteado. Sin embargo, creemos que es interesante presentarlo.  
 
-- **Modelo A**. Red neuronal convolucional (CNN). 
+- **mCNN**. Red neuronal convolucional (CNN). 
 
 ![02_network_flowchart original](https://user-images.githubusercontent.com/87124850/175817555-0e47f2f5-55a9-4157-ac28-86008541ebb7.png)
             Descripción arquitectura de una red neuronal convolucional
@@ -96,12 +88,12 @@ El modelo de CNN esta compuesto por varias capas, en nuestro caso las hemos defi
   - *Activation layer ReLu (Rectified Linear Units)*
   Capa que sustituye todos los valores negativos recibidos en la entrada por ceros, haciendo que el modelo sea no lineal y por tanto, más complejo.
   - *Flatten Layer (la matriz genereda es tranformada a vector)*
+ 
 ### 3. Output Layer (Softmax layer)
 
 Esta arquitectura se mantiene para los demás modelos generados, diferenciandose éstos por el número de repeticiones de las capas de CONV y POOL.
 
 ## Implementación de la CNN.
-
 ### Paso 0. Upload Dataset (librerías, importación imágenes preprocesadas, ejemplo imagen ) 
 
 Cargamos las librerías necesarías para el proceso de implementación: 
