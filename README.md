@@ -4,9 +4,10 @@
 
 En este projecto se plantea poder, dado un video de una exploración endoscópica, detectar todos los frames donde se encuentra una anomalía (pólipos, sangre, úlceras, ...). Para ello se utilizará la información proporciona por _"Kvasir-Capsule Dataset"_, el cual contiene 44 exploraciones de pacientes diferentes con un total de 47,238 frames clasificados en 14 clases diferentes. Cada una de las patologías detectadas contienen un conjunto pequeño de datos aumentando la complejidad del problema.
 
-El modelo elegido para resolver este reto a sido el basado en Redes Neuronales Convolucionales (CNN). En este blog se describe la ejecución y comparación entre varios modelos sobre un conjunto de datos preestablecido.
+El modelo elegido para resolver este reto a sido el basado en Redes Neuronales Convolucionales (CNN). En este blog se describe la ejecución y comparación entre varios modelos sobre un conjunto de datos preprocesados.
 
-El método de validación aplicado es el TwoFold, por ello los datos selecionados se han separado en dos subsets _Split0_ y _Split1_ 
+El método de validación aplicado para comparar los métodos es el TwoFold. Por ello, los datos seleccionados se han separado en dos subsets, _Split0_ y _Split1_, de manera aleatória. Se entrena con el _Split0_ y se valida con _Split1_ y viceversa.
+
 
 
 <img width="460" alt="2022-06-23 15_17_06-Image classification using CNN" src="https://user-images.githubusercontent.com/87124850/175827498-a19bc99f-7d95-4a5b-abd9-f77617f72624.png">
@@ -87,9 +88,7 @@ Se emplearán dos modelos principales:
 
 El modelo general de la CNN aplicada esta compuesta por varias capas, en nuestro caso las hemos defininido como:
 
-### 1. Input Layer 
-```#defición de los píxeles
-```
+### 1. Input Layer (defición de los píxeles)
 ### 2. Hidden Layers:
   - *Convolutional and Pooling Layer* 
   La capa de convolución (CONV) analiza las imágenes proporcionadas en la entrada y detecta la presencia de un conjunto de caracteristícas obteniendo un mapas de     éstas.
@@ -125,76 +124,18 @@ Seguidamente, importamos las imágenes previamente preprocesadas
 Y aplicamos el modelo CNN
 ### Paso 1. Aplicamos los modelos
 
-```
-mD1 = Sequential([
-        Flatten(input_shape=(img_h,img_w,nbands)),
-        Dense(units=100, activation="relu"),
-        Dense(units=100, activation="relu"),
-        Dense(units=ncat, activation="softmax"),
-])
 
 
-# A cambiar, aádir Dropout y quizá cambiar número neuronas en las capas ocultas
-mD2 = Sequential([
-        Flatten(input_shape=(img_h,img_w,nbands)),
-        Dense(units=250, activation="relu"),
-        Dropout(0.5),
-        Dense(units=250, activation="relu"),
-        Dropout(0.5),
-        Dense(units=ncat, activation="softmax"),
-])
-
-mCNN1 = Sequential([
-        Conv2D(filters=32, kernel_size=(3,3), activation="relu", padding="same", input_shape=(img_h,img_w,nbands)),
-        MaxPool2D(pool_size=(2,2), strides=2),
-        Flatten(),
-        Dense(units=ncat, activation="softmax"),
-])
-
-
-mCNN2 = Sequential([
-        Conv2D(filters=32, kernel_size=(3,3), activation="relu", padding="same", input_shape=(img_h,img_w,nbands)),
-        MaxPool2D(pool_size=(2,2), strides=2),
-        Conv2D(filters=64, kernel_size=(3,3), activation="relu",padding="same"),
-        MaxPool2D(pool_size=(2,2), strides=2),
-        Flatten(),
-        Dense(units=ncat, activation="softmax"),
-])
-
-mCNN3 = Sequential([
-        Conv2D(filters=32, kernel_size=(3,3), activation="relu", padding="same", input_shape=(img_h,img_w,nbands)),
-        MaxPool2D(pool_size=(2,2), strides=2),
-        Conv2D(filters=64, kernel_size=(3,3), activation="relu",padding="same"),
-        MaxPool2D(pool_size=(2,2), strides=2),
-        Conv2D(filters=128, kernel_size=(3,3), activation="relu", padding="same", input_shape=(img_h,img_w,nbands)),
-        MaxPool2D(pool_size=(2,2), strides=2),
-        Flatten(),
-        Dense(250, activation="relu"),
-        Dense(units=ncat, activation="softmax"),
-])
-
-mCNN4 = Sequential([
-        Conv2D(filters=32, kernel_size=(3,3), activation="relu", padding="same", input_shape=(img_h,img_w,nbands)),
-        MaxPool2D(pool_size=(2,2), strides=2),
-        Conv2D(filters=64, kernel_size=(3,3), activation="relu",padding="same"),
-        MaxPool2D(pool_size=(2,2), strides=2),
-        Conv2D(filters=128, kernel_size=(3,3), activation="relu", padding="same", input_shape=(img_h,img_w,nbands)),
-        MaxPool2D(pool_size=(2,2), strides=2),
-        Conv2D(filters=256, kernel_size=(3,3), activation="relu", padding="same", input_shape=(img_h,img_w,nbands)),
-        MaxPool2D(pool_size=(2,2), strides=2),
-        Flatten(),
-        Dense(250, activation="relu"),
-        Dense(units=ncat, activation="softmax"),
-])
-
-```
 
 ### Entrenamiento y Validación del modelo
+
 El modelo definido ahora se entrena con la función **fit()**. Para  su evaluación se usa la validación *Two- Fold*, la cual a partir de los datos originales crea dos subsets con el mismo peso. Estos subsets, `split_0` y `split_1`, son usados para para entrenar y validar. Es decir, se entrena con split_0
 
 
 ### Resultados y conclusiones
-matrices de confusiones
+Para visualizar el desempeño del algoritmo que se emplea en los modelos comparados se emplean matrices de confusión. 
+ Para valorar cómo de bueno son los modelos implementados y poder compararlos entre ellos se aplican matrices de confusión.
 
-
+![cm_CNN3_m](https://user-images.githubusercontent.com/87124850/176322215-bc6f241f-753f-41ec-a78a-c56ac07f9b82.png)
+Ejemplo de matriz de confusión del modelo CNN3.
 
