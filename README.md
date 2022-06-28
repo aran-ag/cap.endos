@@ -7,6 +7,7 @@ En este projecto se plantea poder, dado un video de una exploración endoscópic
 El modelo elegido para resolver este reto a sido el basado en Redes Neuronales Convolucionales (CNN). En este blog se describe el proceso completo para poder aplicar una CNN a un conjunto de datos preestablecido, así como la comparación entre varios modelos.
 
 <img width="460" alt="2022-06-23 15_17_06-Image classification using CNN" src="https://user-images.githubusercontent.com/87124850/175827498-a19bc99f-7d95-4a5b-abd9-f77617f72624.png">
+
 Fases communes de toda Red Neuronal Convolucional
 
 ## Orígen del dataset
@@ -58,11 +59,12 @@ preprocessing_function = tf.keras.application.vgg16.preprocess_input
 
 Con esto se genera un array que contiene las imagenes preprocesadas con sus etiquetas asociadas, obteniendo un conjunto de datos listo para aplicar los modelos de interés.
 
-![Uploading resultado_pretratamiento_imagenes.PNG…]()
+![resultado_pretratamiento_imagenes](https://user-images.githubusercontent.com/87124850/176286445-9585ad32-22c8-4728-bc8d-c0a8b4d42326.PNG)
+
 Ejemplo del resultado de preprocesar una imagen mediantes los pasos indicados.
 
 
-## Arquitectura de los modelos a aplicar.
+## Arquitectura de los modelos a aplicar
 
 Se emplearán dos modelos principales:
 
