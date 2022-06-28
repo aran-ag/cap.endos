@@ -28,9 +28,10 @@ El conjunto de datos Kvasir-Capsule esta dividido en tres partes: imágenes etiq
 
 - **Vídeos sin etiquetar**, grupo que contiene 74 videos sin etiquetar, lo que son aproximadamente 25 horas de video y 2,785,829 frames de video.
 
-Del dataset orginal proporcionado, tal y como se describe, el grupo "videos_etiquetados" contiene 47,238 frames categorizados por un profesional, que son los mismos que encontramos en el grupo "imágenes_etiquetadas". Con lo que se concluye que el resto de datos de "videos_etiquetados" contiene tejido sin anomalías (mucosas, estructuras anatómicas, ...) y por tanto, "imágenes_etiquetadas" sera nuestro conjunto de datos a trabajar
+Del dataset orginal proporcionado, tal y como se describe anteriormente, el grupo _"videos_etiquetados"_ contiene 47,238 frames categorizados por un profesional, que son los mismos encontrados en el grupo _"imágenes_etiquetadas"_. Con lo que se concluye que el resto de datos de _"videos_etiquetados"_ contiene tejido sin anomalías (mucosas, estructuras anatómicas, ...) y, por ello, "imágenes_etiquetadas" será nuestro conjunto de datos a trabajar. A continuación, esta carpeta ha sido dividida en dos subsets según si los frames presentaban anomalias o no, _00_Sano_ y 01_Anomalías. Para cada subset los frames estan categorizados por hallazgos.
+Para poder aplicar el método de validcación TwoFold los subsets de las carpetas _00_Sano_ y 01_Anomalías, se han divido al 50% en las carpetas _Train_ y _Test_.
 
-La carpeta "videos_sin_etiquetar" se descarta debido a que la información que contiene es poco útil para métodos de aprendizage supervisado que es el que usaremos en nuestro caso.
+La carpeta _"videos_sin_etiquetar"_ se descarta debido a que la información que contiene es poco útil para métodos de aprendizage supervisado, que es el que usamos en nuestro caso.
 
 ![image](https://user-images.githubusercontent.com/87124850/175823080-f8b023b2-8046-4d15-927c-a5a26c49dfbe.png)
 Muestras de las imágenes que contiene el dataset
@@ -68,14 +69,23 @@ Ejemplo del resultado de preprocesar una imagen mediantes los pasos indicados.
 
 Se emplearán dos modelos principales:
 
-- **mD**. Modelo sencillo que no implementa convoluciones y, por tanto, no es capaz de definir formas y colores con lo que no es aplicable al objetivo planteado. Sin embargo, creemos que es interesante presentarlo.  
+- **D**. Modelo sencillo que no implementa convoluciones y, por tanto, no es capaz de definir formas y colores con lo que no es aplicable al objetivo planteado. Sin embargo, creemos que es interesante presentarlo.  
+-           D1
+-           D2
 
-- **mCNN**. Red neuronal convolucional (CNN). 
+- **CNN**. Red neuronal convolucional (CNN). Trabajaremos con 4 modelos de CNN, los cuales difieren entre ellos unicamente en el número de veces que se aplican las _capas de concolución_ y _pooling_. 
+-           CNN1
+-           CNN2
+-           CNN3
+-           CNN4
 
 ![02_network_flowchart original](https://user-images.githubusercontent.com/87124850/175817555-0e47f2f5-55a9-4157-ac28-86008541ebb7.png)
             Descripción arquitectura de una red neuronal convolucional
 
-El modelo de CNN esta compuesto por varias capas, en nuestro caso las hemos defininido como:
+Éstos modelos se aplicarán sobre los conjuntos de datos, previamente preprocesados y definidos en 2 (2C), 10 (10C) y 14 (14C) categorías. Con lo que se obtendrá la compracación de 6 modelos por cada conjunto de datos preprocesado.
+
+
+El modelo general de la CNN aplicada esta compuesta por varias capas, en nuestro caso las hemos defininido como:
 
 ### 1. Input Layer 
 ```#defición de los píxeles
@@ -90,9 +100,9 @@ El modelo de CNN esta compuesto por varias capas, en nuestro caso las hemos defi
  
 ### 3. Output Layer (Softmax layer)
 
-Esta arquitectura se mantiene para los demás modelos generados, diferenciandose éstos por el número de repeticiones de las capas de CONV y POOL.
 
-## Implementación de la CNN.
+
+## Implementación de los módelos para conjunto de datos 2C.
 ### Paso 0. Upload Dataset (librerías, importación imágenes preprocesadas, ejemplo imagen ) 
 
 Cargamos las librerías necesarías para el proceso de implementación: 
@@ -124,15 +134,36 @@ Seguidamente, importamos las imágenes previamente preprocesadas
 ```
 
 Y aplicamos el modelo CNN
-### Paso 1. Input layer
+### Paso 1. Aplicamos los modelos
 
 ```
-```
+mD1 = Sequential([
+        Flatten(input_shape=(img_h,img_w,nbands)),
+        Dense(units=100, activation="relu"),
+        Dense(units=100, activation="relu"),
+        Dense(units=ncat, activation="softmax"),
+])
 
-### Paso 2. Hidden Layers + Output layer
 
-```
-model = Sequential([
+# A cambiar, aádir Dropout y quizá cambiar número neuronas en las capas ocultas
+mD2 = Sequential([
+        Flatten(input_shape=(img_h,img_w,nbands)),
+        Dense(units=250, activation="relu"),
+        Dropout(0.5),
+        Dense(units=250, activation="relu"),
+        Dropout(0.5),
+        Dense(units=ncat, activation="softmax"),
+])
+
+mCNN1 = Sequential([
+        Conv2D(filters=32, kernel_size=(3,3), activation="relu", padding="same", input_shape=(img_h,img_w,nbands)),
+        MaxPool2D(pool_size=(2,2), strides=2),
+        Flatten(),
+        Dense(units=ncat, activation="softmax"),
+])
+
+
+mCNN2 = Sequential([
         Conv2D(filters=32, kernel_size=(3,3), activation="relu", padding="same", input_shape=(img_h,img_w,nbands)),
         MaxPool2D(pool_size=(2,2), strides=2),
         Conv2D(filters=64, kernel_size=(3,3), activation="relu",padding="same"),
@@ -140,11 +171,34 @@ model = Sequential([
         Flatten(),
         Dense(units=ncat, activation="softmax"),
 ])
+
+mCNN3 = Sequential([
+        Conv2D(filters=32, kernel_size=(3,3), activation="relu", padding="same", input_shape=(img_h,img_w,nbands)),
+        MaxPool2D(pool_size=(2,2), strides=2),
+        Conv2D(filters=64, kernel_size=(3,3), activation="relu",padding="same"),
+        MaxPool2D(pool_size=(2,2), strides=2),
+        Conv2D(filters=128, kernel_size=(3,3), activation="relu", padding="same", input_shape=(img_h,img_w,nbands)),
+        MaxPool2D(pool_size=(2,2), strides=2),
+        Flatten(),
+        Dense(250, activation="relu"),
+        Dense(units=ncat, activation="softmax"),
+])
+
+mCNN4 = Sequential([
+        Conv2D(filters=32, kernel_size=(3,3), activation="relu", padding="same", input_shape=(img_h,img_w,nbands)),
+        MaxPool2D(pool_size=(2,2), strides=2),
+        Conv2D(filters=64, kernel_size=(3,3), activation="relu",padding="same"),
+        MaxPool2D(pool_size=(2,2), strides=2),
+        Conv2D(filters=128, kernel_size=(3,3), activation="relu", padding="same", input_shape=(img_h,img_w,nbands)),
+        MaxPool2D(pool_size=(2,2), strides=2),
+        Conv2D(filters=256, kernel_size=(3,3), activation="relu", padding="same", input_shape=(img_h,img_w,nbands)),
+        MaxPool2D(pool_size=(2,2), strides=2),
+        Flatten(),
+        Dense(250, activation="relu"),
+        Dense(units=ncat, activation="softmax"),
+])
+
 ```
-
-### Paso 3. Output layer
- aquí iría softmax validation
-
 
 ### Entrenamiento y Validación del modelo
 El modelo definido ahora se entrena con la función **fit()**. Para  su evaluación se usa la validación *Two- Fold*, la cual a partir de los datos originales crea dos subsets con el mismo peso. Estos subsets, `split_0` y `split_1`, son usados para para entrenar y validar. Es decir, se entrena con split_0
