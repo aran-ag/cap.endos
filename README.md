@@ -4,7 +4,10 @@
 
 En este projecto se plantea poder, dado un video de una exploración endoscópica, detectar todos los frames donde se encuentra una anomalía (pólipos, sangre, úlceras, ...). Para ello se utilizará la información proporciona por _"Kvasir-Capsule Dataset"_, el cual contiene 44 exploraciones de pacientes diferentes con un total de 47,238 frames clasificados en 14 clases diferentes. Cada una de las patologías detectadas contienen un conjunto pequeño de datos aumentando la complejidad del problema.
 
-El modelo elegido para resolver este reto a sido el basado en Redes Neuronales Convolucionales (CNN). En este blog se describe el proceso completo para poder aplicar una CNN a un conjunto de datos preestablecido, así como la comparación entre varios modelos.
+El modelo elegido para resolver este reto a sido el basado en Redes Neuronales Convolucionales (CNN). En este blog se describe la ejecución y comparación entre varios modelos sobre un conjunto de datos preestablecido.
+
+El método de validación aplicado es el TwoFold, por ello los datos selecionados se han separado en dos subsets _Split0_ y _Split1_ 
+
 
 <img width="460" alt="2022-06-23 15_17_06-Image classification using CNN" src="https://user-images.githubusercontent.com/87124850/175827498-a19bc99f-7d95-4a5b-abd9-f77617f72624.png">
 
@@ -29,7 +32,9 @@ El conjunto de datos Kvasir-Capsule esta dividido en tres partes: imágenes etiq
 - **Vídeos sin etiquetar**, grupo que contiene 74 videos sin etiquetar, lo que son aproximadamente 25 horas de video y 2,785,829 frames de video.
 
 Del dataset orginal proporcionado, tal y como se describe anteriormente, el grupo _"videos_etiquetados"_ contiene 47,238 frames categorizados por un profesional, que son los mismos encontrados en el grupo _"imágenes_etiquetadas"_. Con lo que se concluye que el resto de datos de _"videos_etiquetados"_ contiene tejido sin anomalías (mucosas, estructuras anatómicas, ...) y, por ello, "imágenes_etiquetadas" será nuestro conjunto de datos a trabajar. A continuación, esta carpeta ha sido dividida en dos subsets según si los frames presentaban anomalias o no, _00_Sano_ y 01_Anomalías. Para cada subset los frames estan categorizados por hallazgos.
-Para poder aplicar el método de validcación TwoFold los subsets de las carpetas _00_Sano_ y 01_Anomalías, se han divido al 50% en las carpetas _Train_ y _Test_.
+Para poder aplicar el método de validación TwoFold los subsets de las carpetas _00_Sano_ y 01_Anomalías, se han divido al 50% en las carpetas _Train_ y _Test_.
+
+**FALTA LO DE ENTRENO SPLIT 0 Y VALIDO CON SPLIT 1 Y VICEVERSA**
 
 La carpeta _"videos_sin_etiquetar"_ se descarta debido a que la información que contiene es poco útil para métodos de aprendizage supervisado, que es el que usamos en nuestro caso.
 
@@ -69,15 +74,10 @@ Ejemplo del resultado de preprocesar una imagen mediantes los pasos indicados.
 
 Se emplearán dos modelos principales:
 
-- **D**. Modelo sencillo que no implementa convoluciones y, por tanto, no es capaz de definir formas y colores con lo que no es aplicable al objetivo planteado. Sin embargo, creemos que es interesante presentarlo.  
--           D1
--           D2
+- **D**. Modelo sencillo, que no implementa convoluciones y, por tanto, no es capaz de definir formas y colores con lo que no es aplicable al objetivo planteado. Sin embargo, creemos que es interesante presentarlo.  
 
-- **CNN**. Red neuronal convolucional (CNN). Trabajaremos con 4 modelos de CNN, los cuales difieren entre ellos unicamente en el número de veces que se aplican las _capas de concolución_ y _pooling_. 
--           CNN1
--           CNN2
--           CNN3
--           CNN4
+- **CNN**. Red neuronal convolucional (CNN). Trabajaremos con 4 modelos de CNN (CNN1, CNN2, CNN3 y CNN4), los cuales difieren entre ellos unicamente en el número de veces que se aplican las _capas de convolución_ y _pooling_. 
+
 
 ![02_network_flowchart original](https://user-images.githubusercontent.com/87124850/175817555-0e47f2f5-55a9-4157-ac28-86008541ebb7.png)
             Descripción arquitectura de una red neuronal convolucional
@@ -111,21 +111,10 @@ Cargamos las librerías necesarías para el proceso de implementación:
 import numpy as np
 import pandas as pd
 import tensorflow as tf
-from tensorflow import keras
-from tensorflow.keras.models import Sequential  ## Building Model
-from tensorflow.keras.layers import Activation, Dense, Flatten, BatchNormalization, Conv2D, MaxPool2D  ## Building Model
-from tensorflow.keras.optimizers import Adam  ## Training Model
-from tensorflow.keras.metrics import categorical_crossentropy  ##Training Model
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from sklearn.metrics import confusion_matrix
 import itertools
 import os
-import csv
-import shutil
-import random
-import glob
-import matplotlib.pyplot as plt
-import warnings
+
 ```
 Seguidamente, importamos las imágenes previamente preprocesadas 
 
