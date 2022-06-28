@@ -1,24 +1,13 @@
 # Cápsula endoscópica
 
-## Descripción del project:
+## Descripción del projecto:
 
+En este projecto se plantea poder, dado un video de una exploración endoscópica, detectar todos los frames donde se encuentra una anomalía (pólipos, sangre, úlceras, ...). Para ello se utilizará la información proporciona por _"Kvasir-Capsule Dataset"_, el cual contiene 44 exploraciones de pacientes diferentes con un total de 47,238 frames clasificados en 14 clases diferentes. Cada una de las patologías detectadas contienen un conjunto pequeño de datos aumentando la complejidad del problema.
 
-Dado un video de una exploración endoscópica, detectar todos los frames donde se encuentra una anomalía (pólipos, sangre, úlceras, ...). 
-Cada una de las patologías detectadas contienen un conjunto pequeño de datos, lo que incrementa la complejidad del problema. 
-
-Kvasir-Capsule Dataset
-44 exploraciones de pacientes diferents. Un total de 47,238 frames clasificados en 14 clases diferentes
-
-Empleo de CNN
+El modelo elegido para resolver este reto a sido el basado en Redes Neuronales Convolucionales (CNN). En este blog se describe el proceso completo para poder aplicar una CNN a un conjunto de datos preestablecido, así como la comparación entre varios modelos.
 
 <img width="460" alt="2022-06-23 15_17_06-Image classification using CNN" src="https://user-images.githubusercontent.com/87124850/175827498-a19bc99f-7d95-4a5b-abd9-f77617f72624.png">
-
-## Esquema 
-
-1 modelo CNN 
-selección de datos
-preprceso
-
+Fases communes de toda Red Neuronal Convolucional
 
 ## Orígen del dataset
 
@@ -32,13 +21,11 @@ Puede ser descargado desde :
 
 El conjunto de datos Kvasir-Capsule esta dividido en tres partes: imágenes etiquetadas, vídeos etiquetados y imágenes sin etiquetar. Cada parte se describe a continuación:
 
-- **Imágenes etiquetadas**, este grupo contiene 47,238 imágenes guardadas en formato PNG. En su carpeta, las imágenes se encuentran clasificadas en subcarpetas por tipo de hallazgo. El número de imágenes por clase no esta balanceado.Furthermore, the labeled image data includes bounding box coordinates, which can be found in the metadata.csv file. 
+- **Imágenes etiquetadas**, este grupo contiene 47,238 imágenes. En su carpeta, las imágenes se encuentran clasificadas en subcarpetas por tipo de hallazgo. El número de imágenes por clase no esta balanceado.Furthermore, the labeled image data includes bounding box coordinates, which can be found in the metadata.csv file. 
 
 - **Vídeos etiquetados**, este otro grupo contiene 43 videos, los cuales contienes diferentes puntos de referencia anatómicos y hallazgos patológicos y normales. Esto corresponde a aproximadamente 19 horas de video, 1,955,675 vframes, que pueden ser convertidos en imágenes si es necesario. Cada video ha sido manualmente evaluado por un profesional médico del campo de la gastroenterología resultando en 47,238 frames anotados.
 
-
 - **Vídeos sin etiquetar**, grupo que contiene 74 videos sin etiquetar, lo que son aproximadamente 25 horas de video y 2,785,829 frames de video.
-
 
 Del dataset orginal proporcionado, tal y como se describe, el grupo "videos_etiquetados" contiene 47,238 frames categorizados por un profesional, que son los mismos que encontramos en el grupo "imágenes_etiquetadas". Con lo que se concluye que el resto de datos de "videos_etiquetados" contiene tejido sin anomalías (mucosas, estructuras anatómicas, ...) y por tanto, "imágenes_etiquetadas" sera nuestro conjunto de datos a trabajar
 
@@ -49,19 +36,27 @@ Muestras de las imágenes que contiene el dataset
 
 ## Preprocesado del dataset
 
-Una vez determinado el conjunto de datos inicial a trabajar ("imágenes_etiquetadas") se procede al preprocesado de imágenes antes de aplicar nuestro modelo directamente.
+Una vez determinado el conjunto de datos inicial a trabajar ("imágenes_etiquetadas") se procede al preprocesado de imágenes antes de aplicar un modelo directamente.
 Este prepocesado consta de los siguientes pasos:
 
-- **noramlización de valores**, mediante la clase _ImageDataGenerator_ propia de Tensorflow Keras y la función de preproceso, _vgg16_. Este paso se encarga de cambiar el orden de bandas de color y hacer un zero-centered a todos los píxeles,  **---DESARROLLAR---**
+- **noramlización de valores**, mediante la clase _ImageDataGenerator_ propia de Tensorflow Keras y la función de preproceso, _vgg16_. Este paso se encarga de cambiar el orden de bandas de color y hacer un zero-centered a todos los píxeles.  **---DESARROLLAR---**
 ```
 preprocessing_function = tf.keras.application.vgg16.preprocess_input
 ```
-- **Cambio de directorio**,
+- **Cambio de directorio**
+```
+```
 - **Reescalado**, se define el rescalado de las imágenes a 28x28 píxeles. 
-- **Categorización**, en este paso se han asociado etiquetas en función de las categorías. Cabe decir en este punto que nosotros hacemos dos categorias generales. Una binomial que define la imagen en normal o anomalía (vector [normal, anomalia]). Y otra que divide entre las 14 categorías establecidas.
+```
+```
+- **Categorización**, en este paso se han asociado etiquetas en función de las categorías. Cabe decir en este punto que nosotros hacemos tres categorias generales. Una binomial que define la imagen en normal o anomalía (vector [normal, anomalia]). Las demás son multicategóricas, de 10 y 14 categorías.
+ ```
+```
 - **Batch size**, se define el empaquetamiento de las imágenes salientes en 128 (2^7)
+```
+```
 
-Con esto se genera un array que contiene las imagenes preprocesadas con sus etiquetas asociadas, conjunto de datos listo para aplicar los modelos a comprobar.
+Con esto se genera un array que contiene las imagenes preprocesadas con sus etiquetas asociadas, obteniendo un conjunto de datos listo para aplicar los modelos de interés.
 
 ![Uploading resultado_pretratamiento_imagenes.PNG…]()
 Ejemplo del resultado de preprocesar una imagen mediantes los pasos indicados.
@@ -80,9 +75,11 @@ Se emplearán dos modelos principales:
 
 El modelo de CNN esta compuesto por varias capas, en nuestro caso las hemos defininido como:
 
-### 1. Input Layer (definición de los píxeles)
+### 1. Input Layer 
+```#defición de los píxeles
+```
 ### 2. Hidden Layers:
-  - *Convolutional and Pooling Layer* (n veces)
+  - *Convolutional and Pooling Layer* 
   La capa de convolución (CONV) analiza las imágenes proporcionadas en la entrada y detecta la presencia de un conjunto de caracteristícas obteniendo un mapas de     éstas.
   La capa de Pooling (POOL) es una operación que recibe el mapa de características proviniente de la capa convolucional y lo reduce en dimensionalidad conservando     las características esenciales. MaxPooling
   - *Activation layer ReLu (Rectified Linear Units)*
@@ -118,18 +115,13 @@ import glob
 import matplotlib.pyplot as plt
 import warnings
 ```
-Así como, importamos las imágenes procesadas 
+Seguidamente, importamos las imágenes previamente preprocesadas 
 
 ```
 
 ```
 
-Después del preprocesado realizado las imágenes obtenidas son las siguientes:
-
-**(ejemplo imágenes preprocesadas)**
-
-
-
+Y aplicamos el modelo CNN
 ### Paso 1. Input layer
 
 ```
