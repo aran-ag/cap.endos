@@ -4,9 +4,18 @@
 
 En este projecto se plantea poder, dado un video de una exploración endoscópica, detectar todos los frames donde se encuentra una anomalía (pólipos, sangre, úlceras, ...). Para ello se utilizará la información proporciona por _"Kvasir-Capsule Dataset"_, el cual contiene 44 exploraciones de pacientes diferentes con un total de 47,238 frames clasificados en 14 clases diferentes. Cada una de las patologías detectadas contienen un conjunto pequeño de datos aumentando la complejidad del problema.
 
-El modelo elegido para resolver este reto a sido el basado en Redes Neuronales Convolucionales (CNN). En este blog se describe la ejecución y comparación entre varios modelos sobre un conjunto de datos preprocesados.
+Para resolver este reto se ha elegido usar dos tipos de Redes Neuronales, las Densas y las Convolucionales. E implementarlas sobre el conjunto de datos previamente preprocesado. 
 
-El método de validación aplicado para comparar los métodos es el TwoFold. Por ello, los datos seleccionados se han separado en dos subsets, _Split0_ y _Split1_, de manera aleatória. Se entrena con el _Split0_ y se valida con _Split1_ y viceversa.
+Las **Redes Neuronales Densas (DNN)** son redes en las que todas las neuronas de una capa están conectadas a todas las neuronas de la siguiente. Son eficaces en cuanto al tratamiento de información porque cada neurona dispone de más datos para tratar, pero a su vez, es más lenta a la hora de procesar los datos. Para nuestro caso, al no implementar convoluciones no es capaz de definir formas y colores, con lo que no es aplicable al objetivo planteado. Sin embargo, creemos que es interesante presentarlo. Aplicaremos 2 clases, D1 y D2.
+
+
+Las **Redes Neuronales Convolucionales (CNN)**, modelos multicapa, utilizan la operación de convolución como base para el
+procesamiento de los datos. Dentro de esta red, existen matrices llamadas
+filtros que detectan, a su vez, distintos tipos de características dentro de los datos que se quieren procesar. Siendo capaces de detectar vordes, formas y colores. Aplicaremos 4 clases de CNN, diferenciandose entre ellas por el número de repeticiones de las capas Convolucional y Pooling. CNN1, CNN2, CNN3 y CNN4 
+
+Seguidamente, se compararán los resultados generados por estos modelos mediantes matrices de confusión.
+
+El método de validación aplicado para comparar los modelos es el TwoFold. Por ello, los datos seleccionados se han separado en dos subsets, _Split0_ y _Split1_, de manera aleatória. Se entrena con el _Split0_ y se valida con _Split1_ y viceversa.
 
 
 
@@ -52,19 +61,11 @@ Este prepocesado consta de los siguientes pasos:
 preprocessing_function = tf.keras.application.vgg16.preprocess_input
 ```
 - **Cambio de directorio**
-```
-```
 - **Reescalado**, se define el rescalado de las imágenes a 28x28 píxeles. 
-```
-```
 - **Categorización**, en este paso se han asociado etiquetas en función de las categorías. Cabe decir en este punto que nosotros hacemos tres categorias generales. Una binomial que define la imagen en normal o anomalía (vector [normal, anomalia]). Las demás son multicategóricas, de 10 y 14 categorías.
- ```
-```
 - **Batch size**, se define el empaquetamiento de las imágenes salientes en 128 (2^7)
-```
-```
 
-Con esto se genera un array que contiene las imagenes preprocesadas con sus etiquetas asociadas, obteniendo un conjunto de datos listo para aplicar los modelos de interés.
+Con esto se genera un array que contiene las imágenes preprocesadas con sus etiquetas asociadas, obteniendo un conjunto de datos listo para aplicar los modelos de interés.
 
 ![resultado_pretratamiento_imagenes](https://user-images.githubusercontent.com/87124850/176286445-9585ad32-22c8-4728-bc8d-c0a8b4d42326.PNG)
 
@@ -73,11 +74,11 @@ Ejemplo del resultado de preprocesar una imagen mediantes los pasos indicados.
 
 ## Arquitectura de los modelos a aplicar
 
-Se emplearán dos modelos principales:
+Se emplean dos modelos principales:
 
-- **D**. Modelo sencillo, que no implementa convoluciones y, por tanto, no es capaz de definir formas y colores con lo que no es aplicable al objetivo planteado. Sin embargo, creemos que es interesante presentarlo.  
+- **D**. Modelo sencillo de Red Neuronal Densa.
 
-- **CNN**. Red neuronal convolucional (CNN). Trabajaremos con 4 modelos de CNN (CNN1, CNN2, CNN3 y CNN4), los cuales difieren entre ellos unicamente en el número de veces que se aplican las _capas de convolución_ y _pooling_. 
+- **CNN**. Red Neuronal Nonvolucional (CNN). Trabajaremos con 4 modelos de CNN (CNN1, CNN2, CNN3 y CNN4), los cuales difieren entre ellos unicamente en el número de veces que se aplican las _capas de convolución_ y _pooling_. 
 
 
 ![02_network_flowchart original](https://user-images.githubusercontent.com/87124850/175817555-0e47f2f5-55a9-4157-ac28-86008541ebb7.png)
@@ -99,7 +100,7 @@ El modelo general de la CNN aplicada esta compuesta por varias capas, en nuestro
  
 ### 3. Output Layer (Softmax layer)
 
-
+En definitiva vamos a implentar sobre dos modelos de redes neuronales, uno basado 
 
 ## Implementación de los módelos para conjunto de datos 2C.
 ### Paso 0. Upload Dataset (librerías, importación imágenes preprocesadas, ejemplo imagen ) 
