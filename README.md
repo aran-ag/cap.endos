@@ -6,13 +6,13 @@ En este projecto se plantea poder, dado un video de una exploración endoscópic
 Dado que ciertas patologías son menos probables de ser encontradas en exploraciones, la cantidad de los ejemplos de algunas anomalías esta desbalanceada respecto de otras. Por ejemplo, se tienen 55 imágenes de pólipos en comparación con las 12 imágenes para Blood Hematin. 
 
 
-Para resolver este reto se ha elegido un método de aprendizaje supervisado conocido como Redes Neuronales. Éstas estan consideradas como muy buenos clasificadores. De entre los diferentes tipos que hay se ha escogido trabajar con Redes Neuronales Densas  y Redes Neuronales Convolucionales. Cabe resaltar que en _Kvasir-Capsule_ utilizaron un modelo ResNet(Residual Network) y por ello hemos querido probar otros tipos de redes neuronales,
+Para resolver este reto se ha elegido un método de aprendizaje supervisado conocido como Redes Neuronales. Éstas estan consideradas como muy buenos clasificadores. De entre los diferentes tipos que hay se ha escogido trabajar con Redes Neuronales Densas  y Redes Neuronales Convolucionales. Cabe resaltar que en _Kvasir-Capsule_ utilizaron un modelo ResNet(Residual Network) y por ello hemos querido probar otros tipos de redes neuronales.
 
 Las **Redes Neuronales Densas (DNN)** son redes en las que todas las neuronas de una capa están conectadas a todas las neuronas de la siguiente. Son eficaces en cuanto al tratamiento de información porque cada neurona dispone de más datos para tratar, pero a su vez, es más lenta a la hora de procesar los datos. En este caso, al no implementar convoluciones no es capaz de definir formas y colores, con lo que no es aplicable al objetivo planteado. Sin embargo, se cree que es interesante presentar esta estructura para hacer una comparativa con las CNN. Se aplican dos estructuras de DNN, las cuales se etiquetan como D1 y D2.
 
 Las **Redes Neuronales Convolucionales (CNN)**, son modelos multicapa, que utilizan una operación matemática llamada convolución para el procesamiento de los datos. Por ello, son útiles para trabajar con imágenes ya que si que detectan formas y colores. Generalmente las CNN, toman las imágenes como input, asignándole importancia a ciertos elementos y así, poder diferenciar unas de otras. Se probarán 4 estructuras distintas de CNN: CNN1, CNN2, CNN3 y CNN4. Éstas se diferencian en el número de repeticiones de las capas de _convolución_ y _pooling_ que presentan en la estructura.
 
-Estas estructuras se testearán en 3 escenarios distintos. Unos donde hay 14 categorías, 10 categorías y 2 categorías. 
+Estas estructuras se testearán en los 3 escenarios distintos que se han generados a part. Unos donde hay 14 categorías, 10 categorías y 2 categorías. 
 
 Al igual que _Kvasir-Capsule_ nos planteamos aplicar una metodología de **2Fold cross-validation**, que consiste en coger el conjunto  de datos y dividirlo en 2 partes iguales. Para este caso hemos decidido que esta partición sea en 2 categorías, _Split1_ y _Split0_, que contienen el 50% del total cada una. 
 
@@ -32,7 +32,7 @@ Pasos seguidos durante el proceso:
 
 ## Orígen del dataset
 
-Kvasir-Capsule es el conjunto de datos original para el desarrollo de este proyecto. Es el conjunto de datos PillCAM más grande DE ACCESO LIBRE pubLicado  y proviene del repositorio oficial Open Science Framework (OSF). En total, contiene 47,238 imágenes etiquetadas y 117 videos, donde captura puntos de referencia anatómicos y hallazgos patológicos y normales. Generando más de 4,741,621 frames entre imágenes y videos. 
+Kvasir-Capsule es el conjunto de datos original para el desarrollo de este proyecto. Es el conjunto de datos PillCAM más grande de acceso libre pubLicado y proviene del repositorio oficial Open Science Framework (OSF). En total, contiene 47,238 imágenes etiquetadas y 117 videos, donde captura puntos de referencia anatómicos y hallazgos patológicos y normales. Generando más de 4,741,621 frames entre imágenes y vídeos. 
 
 Puede ser descargado desde :
 
@@ -49,14 +49,14 @@ El conjunto de datos _Kvasir-Capsule_ esta dividido en tres partes: imágenes et
 
 - **Vídeos etiquetados**, este otro grupo contiene 43 vídeos, los cuales contienen diferentes puntos de referencia anatómicos y hallazgos patológicos y normales. Esto corresponde a aproximadamente 19 horas de video, 1,955,675 frames, que pueden ser convertidos en imágenes si es necesario. Cada vídeo ha sido evaluado personalmente por un profesional médico del campo de la gastroenterología. Esta evaluación tiene como resutado el _metadata.csv_ donde se puede encontrar las 47,238 anotaciones que corresponden a los 47,238 frames anotados.
 
-- **Vídeos sin etiquetar**, grupo que contiene 74 videos sin etiquetar (NO REVISADO POR UN POSTERIOR POR UN PROF), lo que son aproximadamente 25 horas de vídeo y 2,785,829 frames de vídeo.
+- **Vídeos sin etiquetar**, grupo que contiene 74 vídeos sin etiquetar, no revisados por un profesiona, lo que son aproximadamente 25 horas de vídeo y 2,785,829 frames de vídeo.
 
 Del dataset orginal proporcionado, tal y como se describe anteriormente, el grupo _"videos etiquetados"_ contiene 47,238 frames categorizados por un profesional, que son los mismos encontrados en el grupo _"imágenes etiquetadas"_. Con lo que se concluye que el resto de datos de _"videos etiquetados"_ contiene información de tejido sin anomalías (mucosas, estructuras anatómicas, ...) y, por ello, _"imágenes etiquetadas"_ será nuestro conjunto de datos a trabajar. 
 
 ![image](https://user-images.githubusercontent.com/87124850/175823080-f8b023b2-8046-4d15-927c-a5a26c49dfbe.png)
 Muestras de las imágenes que contiene el dataset
 
-La carpeta _"videos_sin_etiquetar"_ se descarta debido a que la información que contiene es poco útil para métodos de aprendizage supervisado, que es el que usamos en ESTE caso.
+La carpeta _"videos_sin_etiquetar"_ se descarta debido a que la información que contiene es poco útil para métodos de aprendizage supervisado, que es el que usamos en este caso.
 
 COOREGIR A continuación, la carpeta _"imágenes etiquetadas"_ sido dividida en dos subsets según si los frames presentaban anomalias o no, _00_Sano_ y 01_Anomalías. Éstos a su vez son separados en _Train_ y _Test_, en cada una de estas subcarpetas las imágenes se encuentran categorizadas por el tipo de hallazgo. La separación en _Train_ y _VALIDATION_ ha sido del mismo peso para cada uno.
 
