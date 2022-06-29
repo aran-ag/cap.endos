@@ -1,5 +1,4 @@
 # Cápsula endoscópica
-
 ## Descripción del projecto:
 
 En este projecto se plantea poder, dado un video de una exploración endoscópica, detectar todos los frames donde se encuentra una anomalía (pólipos, sangre, úlceras, ...). Para ello se utilizará la información proporciona por _"Kvasir-Capsule Dataset"_, el cual contiene 44 exploraciones de pacientes diferentes con un total de 47,238 frames clasificados en 14 clases diferentes. Cada una de las patologías detectadas contienen un conjunto pequeño de datos aumentando la complejidad del problema.
@@ -13,7 +12,7 @@ Las **Redes Neuronales Convolucionales (CNN)**, modelos multicapa, utilizan la o
 
 Estos algoritmos se implementarán sobre un conjunto de datos preprocesado. Cabe decir que se realizan 3 prepocessado diferentes obteniendo 3 sets de datos. Estos estan organizados en 2, 10 y 14 categorías.
 
-Con lo que, en terminos generales, se aplican 6 algoritmos a cada set de datos preprocesados. Para evaluar y comparar estos modelos se usará el termino de _validación cruzada TwoFold_, método que separa los datos en 2 subsets, de manera aleatória. En nuestro caso, el conjunto de datos de trabajo es divido en sano, _00Sano_, y anomalias, _01Anomalias. Éstos a su vez son separados en _Train_ y _Test_, en cada una de estas subcarpetas las imágenes se encuentran categorizadas por el tipo de hallazgo. La separación en _Train_ y _Test_ ha sido del mismo peso para cada uno.
+Con lo que, en terminos generales, se aplican 6 ESTRUC DISTINTAS DE REDES NEURONALES algoritmos a cada set de datos preprocesados. Para evaluar y comparar estos modelos se usará el termino de _validación cruzada TwoFold_, método que separa los datos en 2 subsets, de manera aleatória EN PORPOR A LA. En nuestro caso, el conjunto de datos de trabajo es divido en sano, _00Sano_, y anomalias, _01Anomalias. Éstos a su vez son separados en _Train_ y _Test_, en cada una de estas subcarpetas las imágenes se encuentran categorizadas por el tipo de hallazgo. La separación en _Train_ y _Test_ ha sido del mismo peso para cada uno.
 
 
 Finalmente, se resultados generados con cada algoritmo se comparán mediante matrices de confusión.
@@ -99,7 +98,7 @@ El modelo general de la CNN aplicada esta compuesta por varias capas, en nuestro
  
 ### 3. Output Layer (Softmax layer)
 
-
+FOTO EJEMPLO CODIGO
 
 ## Pasos a seguir para la implementación de los módelos 
 ### Paso 0. Upload Dataset (librerías, importación imágenes preprocesadas, ejemplo imagen ) 
