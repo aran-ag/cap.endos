@@ -47,7 +47,6 @@ La carpeta _"videos_sin_etiquetar"_ se descarta debido a que la información que
 
 A continuación, la carpeta _"imágenes etiquetadas"_ sido dividida en dos subsets según si los frames presentaban anomalias o no, _00_Sano_ y 01_Anomalías. Éstos a su vez son separados en _Train_ y _Test_, en cada una de estas subcarpetas las imágenes se encuentran categorizadas por el tipo de hallazgo. La separación en _Train_ y _Test_ ha sido del mismo peso para cada uno.
 
-Finalmente, se entrenará con _00_Sano_ y se validará 01_Anomalías, y viceversa. Los resultados serán comparados mediante matrices de confusión. 
 
 
 ![image](https://user-images.githubusercontent.com/87124850/175823080-f8b023b2-8046-4d15-927c-a5a26c49dfbe.png)
@@ -64,10 +63,10 @@ preprocessing_function = tf.keras.application.vgg16.preprocess_input
 ```
 - **Cambio de directorio**
 - **Reescalado**, se define el rescalado de las imágenes a 28x28 píxeles. 
-- **Categorización**, en este paso se han asociado etiquetas en función de las categorías. Cabe decir en este punto que nosotros hacemos tres categorias generales. Una binomial que define la imagen en normal o anomalía (vector [normal, anomalia]). Las demás son multicategóricas, de 10 y 14 categorías.
+- **Categorización**, en este paso se han asociado etiquetas en función de las categorías. Como  hemos dicho anteriormente, hacemos 3 categorizaciónes diferentes, 1 binominal (2C) y las demás multicategóricas (10C y 14C).
 - **Batch size**, se define el empaquetamiento de las imágenes salientes en 128 (2^7)
 
-Con esto se genera un array que contiene las imágenes preprocesadas con sus etiquetas asociadas, obteniendo un conjunto de datos listo para aplicar los modelos de interés.
+Con esto preprocesado se genera un array que contiene las imágenes preprocesadas con sus etiquetas asociadas, obteniendo un conjunto de datos listo para aplicar los diferetes modelos de interés.
 
 ![resultado_pretratamiento_imagenes](https://user-images.githubusercontent.com/87124850/176286445-9585ad32-22c8-4728-bc8d-c0a8b4d42326.PNG)
 
@@ -86,8 +85,6 @@ Se emplean dos modelos principales:
 ![02_network_flowchart original](https://user-images.githubusercontent.com/87124850/175817555-0e47f2f5-55a9-4157-ac28-86008541ebb7.png)
             Descripción arquitectura de una red neuronal convolucional
 
-Éstos modelos se aplicarán sobre los conjuntos de datos, previamente preprocesados y definidos en 2 (2C), 10 (10C) y 14 (14C) categorías. Con lo que se obtendrá la compracación de 6 modelos por cada conjunto de datos preprocesado.
-
 
 El modelo general de la CNN aplicada esta compuesta por varias capas, en nuestro caso las hemos defininido como:
 
@@ -98,13 +95,13 @@ El modelo general de la CNN aplicada esta compuesta por varias capas, en nuestro
   La capa de Pooling (POOL) es una operación que recibe el mapa de características proviniente de la capa convolucional y lo reduce en dimensionalidad conservando     las características esenciales. MaxPooling
   - *Activation layer ReLu (Rectified Linear Units)*
   Capa que sustituye todos los valores negativos recibidos en la entrada por ceros, haciendo que el modelo sea no lineal y por tanto, más complejo.
-  - *Flatten Layer (la matriz genereda es tranformada a vector)*
+  - *Flatten Layer (la matriz generada es tranformada a vector)*
  
 ### 3. Output Layer (Softmax layer)
 
-En definitiva vamos a implentar sobre dos modelos de redes neuronales, uno basado 
 
-## Implementación de los módelos para conjunto de datos 2C.
+
+## Pasos a seguir para la implementación de los módelos 
 ### Paso 0. Upload Dataset (librerías, importación imágenes preprocesadas, ejemplo imagen ) 
 
 Cargamos las librerías necesarías para el proceso de implementación: 
@@ -114,7 +111,6 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 from sklearn.metrics import confusion_matrix
-import itertools
 import os
 
 ```
