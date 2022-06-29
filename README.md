@@ -128,13 +128,12 @@ Y aplicamos el modelo CNN
 
 ### Entrenamiento y Validación del modelo
 
-El modelo definido ahora se entrena con la función **fit()**. Para  su evaluación se usa la validación *Two- Fold*, la cual a partir de los datos originales crea dos subsets con el mismo peso. Estos subsets, `split_0` y `split_1`, son usados para para entrenar y validar. Es decir, se entrena con split_0
-
-
-### Resultados y conclusiones
-Para visualizar el desempeño del algoritmo que se emplea en los modelos comparados se emplean matrices de confusión. 
- Para valorar cómo de bueno son los modelos implementados y poder compararlos entre ellos se aplican matrices de confusión.
+El modelo definido ahora se entrena con la función **fit()**. Evaluamos su rendimiento, calculando la matriz de confusión y las métricas exactitud (Accurary) y precisión (Precision).
 
 ![cm_CNN3_m](https://user-images.githubusercontent.com/87124850/176322215-bc6f241f-753f-41ec-a78a-c56ac07f9b82.png)
-Ejemplo de matriz de confusión del modelo CNN3.
+Ejemplo de matriz de confusión del modelo CNN3 en forma de mapa de calor.
+
+### Resultados y conclusiones
+
+![2C_m](https://user-images.githubusercontent.com/87124850/176498083-4e82a43b-ab58-45f8-9b61-16b1067c8458.PNG)
 
