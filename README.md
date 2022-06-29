@@ -13,19 +13,19 @@ Las **Redes Neuronales Convolucionales (CNN)**, modelos multicapa, utilizan la o
 
 Estos algoritmos se implementarán sobre un conjunto de datos preprocesado. Cabe decir que se realizan 3 prepocessado diferentes obteniendo 3 sets de datos. Estos estan organizados en 2, 10 y 14 categorías.
 
-Con lo que, en terminos generales, se aplican 6 algoritmos a cada set de datos preprocesados. Para evaluar y comparar estos modelos se usará el termino de validación TwoFold, método que separa los datos en 2 subsets, de manera aleatória. En nuestro caso, el conjunto de datos de trabajo es divido en sano, _00Sano_, y anomalias, _01Anomalias. Estos a su vez en _Train_ y _Test_. La idea es entrenar con ______???__________
+Con lo que, en terminos generales, se aplican 6 algoritmos a cada set de datos preprocesados. Para evaluar y comparar estos modelos se usará el termino de _validación cruzada TwoFold_, método que separa los datos en 2 subsets, de manera aleatória. En nuestro caso, el conjunto de datos de trabajo es divido en sano, _00Sano_, y anomalias, _01Anomalias. Éstos a su vez son separados en _Train_ y _Test_, en cada una de estas subcarpetas las imágenes se encuentran categorizadas por el tipo de hallazgo. La separación en _Train_ y _Test_ ha sido del mismo peso para cada uno.
 
-( los datos seleccionados se han separado en dos subsets, _Split0_ y _Split1_, de manera aleatória. Se entrena con el _Split0_ y se valida con _Split1_ y viceversa.)
 
-Finalmente se resultados generados con cada algoritmo se comparán mediante matrices de confusión.
+Finalmente, se resultados generados con cada algoritmo se comparán mediante matrices de confusión.
 
 <img width="460" alt="2022-06-23 15_17_06-Image classification using CNN" src="https://user-images.githubusercontent.com/87124850/175827498-a19bc99f-7d95-4a5b-abd9-f77617f72624.png">
 
 Fases communes de toda Red Neuronal Convolucional
 
+Pasos seguidos durante el proceso:
 ## Orígen del dataset
 
-Kvasir-Capsule es el conjunto de datos original para el desarrollo de este proyecto. El cual es el conjunto de datos PillCAM más grande pubicado públicamente y proviene del repositorio oficial Open Science Framework (OSF). En total, contiene 47,238 imágenes etiquetadas y 117 videos, donde captura puntos de referencia anatómicos y hallazgos patológicos y normales. Generando más de 4,741,621 frames entre imágenes y videos. 
+Kvasir-Capsule es el conjunto de datos original para el desarrollo de este proyecto. Es el conjunto de datos PillCAM más grande pubicado públicamente y proviene del repositorio oficial Open Science Framework (OSF). En total, contiene 47,238 imágenes etiquetadas y 117 videos, donde captura puntos de referencia anatómicos y hallazgos patológicos y normales. Generando más de 4,741,621 frames entre imágenes y videos. 
 
 Puede ser descargado desde :
 
@@ -35,18 +35,20 @@ Puede ser descargado desde :
 
 El conjunto de datos Kvasir-Capsule esta dividido en tres partes: imágenes etiquetadas, vídeos etiquetados y imágenes sin etiquetar. Cada parte se describe a continuación:
 
-- **Imágenes etiquetadas**, este grupo contiene 47,238 imágenes. En su carpeta, las imágenes se encuentran clasificadas en subcarpetas por tipo de hallazgo. El número de imágenes por clase no esta balanceado.Furthermore, the labeled image data includes bounding box coordinates, which can be found in the metadata.csv file. 
+- **Imágenes etiquetadas**, este grupo contiene 47,238 imágenes. En su carpeta, las imágenes se encuentran clasificadas en subcarpetas por tipo de hallazgo. El número de imágenes por clase no esta balanceado. Además, the labeled image data includes bounding box coordinates, which can be found in the metadata.csv file. 
 
 - **Vídeos etiquetados**, este otro grupo contiene 43 videos, los cuales contienes diferentes puntos de referencia anatómicos y hallazgos patológicos y normales. Esto corresponde a aproximadamente 19 horas de video, 1,955,675 vframes, que pueden ser convertidos en imágenes si es necesario. Cada video ha sido manualmente evaluado por un profesional médico del campo de la gastroenterología resultando en 47,238 frames anotados.
 
 - **Vídeos sin etiquetar**, grupo que contiene 74 videos sin etiquetar, lo que son aproximadamente 25 horas de video y 2,785,829 frames de video.
 
-Del dataset orginal proporcionado, tal y como se describe anteriormente, el grupo _"videos_etiquetados"_ contiene 47,238 frames categorizados por un profesional, que son los mismos encontrados en el grupo _"imágenes_etiquetadas"_. Con lo que se concluye que el resto de datos de _"videos_etiquetados"_ contiene tejido sin anomalías (mucosas, estructuras anatómicas, ...) y, por ello, "imágenes_etiquetadas" será nuestro conjunto de datos a trabajar. A continuación, esta carpeta ha sido dividida en dos subsets según si los frames presentaban anomalias o no, _00_Sano_ y 01_Anomalías. Para cada subset los frames estan categorizados por hallazgos.
-Para poder aplicar el método de validación TwoFold los subsets de las carpetas _00_Sano_ y 01_Anomalías, se han divido al 50% en las carpetas _Train_ y _Test_.
-
-**FALTA LO DE ENTRENO SPLIT 0 Y VALIDO CON SPLIT 1 Y VICEVERSA**
+Del dataset orginal proporcionado, tal y como se describe anteriormente, el grupo _"videos etiquetados"_ contiene 47,238 frames categorizados por un profesional, que son los mismos encontrados en el grupo _"imágenes etiquetadas"_. Con lo que se concluye que el resto de datos de _"videos etiquetados"_ contiene información de tejido sin anomalías (mucosas, estructuras anatómicas, ...) y, por ello, _"imágenes etiquetadas"_ será nuestro conjunto de datos a trabajar. 
 
 La carpeta _"videos_sin_etiquetar"_ se descarta debido a que la información que contiene es poco útil para métodos de aprendizage supervisado, que es el que usamos en nuestro caso.
+
+A continuación, la carpeta _"imágenes etiquetadas"_ sido dividida en dos subsets según si los frames presentaban anomalias o no, _00_Sano_ y 01_Anomalías. Éstos a su vez son separados en _Train_ y _Test_, en cada una de estas subcarpetas las imágenes se encuentran categorizadas por el tipo de hallazgo. La separación en _Train_ y _Test_ ha sido del mismo peso para cada uno.
+
+Finalmente, se entrenará con _00_Sano_ y se validará 01_Anomalías, y viceversa. Los resultados serán comparados mediante matrices de confusión. 
+
 
 ![image](https://user-images.githubusercontent.com/87124850/175823080-f8b023b2-8046-4d15-927c-a5a26c49dfbe.png)
 Muestras de las imágenes que contiene el dataset
