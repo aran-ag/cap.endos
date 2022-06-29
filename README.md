@@ -81,7 +81,7 @@ Con este procesado se genera un array que contiene las imágenes con sus etiquet
 
 ![imagenes pretatadas](https://user-images.githubusercontent.com/87124850/176514794-2a360d03-3ad4-45d5-8562-8e73fd5727d7.PNG)
 
-Ejemplo del resultado de preprocesar una imagen mediante los pasos indicados.
+Ejemplo del resultado de preprocesar una imágen mediante los pasos indicados.
 
 
 ## Arquitectura de los modelos a aplicar
@@ -97,7 +97,7 @@ Se emplean dos modelos principales:
             Ejemplo de una CNN.
 
 
-El modelo general de la CNN aplicada esta compuesta por varias capas, en nuestro caso las hemos defininido como:
+El modelo general de la CNN aplicada esta compuesta por varias capas, en este caso las hemos defininido como:
 1. __Input Layer__, capa que define el número de neuronas que tendrá la primera capa en función de la resolución de cada imagen. 
 2. __Convolutional Layer__, capa formada por:
 _Convolutional layer_ mediante la aplicación de esta técnica se detecta la presencia de rasgos característicos, tanto geometricos y cromáticos, hacieno un mapa de ellas.
@@ -116,10 +116,11 @@ En todos los casos se ha aplicado la capa de activación _ReLu_(Rectified Linear
 
 ### RESULTADOS
 
-Una vez entrenandos los modelos mediante el método 2Fold cross-validation (hemos pasado train dataset como _split0_ y el validation dataset como _split1_) se le pasa un dataset que será igual al validation dataset pero ordenado para evaluar si el modelo hace predicciones correctamente. Una vez obtenidos los resultados de las predicciones se obtiene la matriz de confusión para los resultados para los caos split1-split0 y para split0_split1. A continuación, luego hacemos la media de estas matrices para obtenir una matriz que sea la media. Comparando estas matrices de confusión se puede determinar cual es el modelo que mejor efectua su trabajo. 
+Una vez entrenandos los modelos mediante el método 2Fold cross-validation (hemos pasado train dataset como _split0_ y el validation dataset como _split1_) se le pasa un dataset que será igual al validation dataset pero ordenado y así, evaluar si el modelo hace predicciones correctamente. Una vez obtenidos los resultados de las predicciones se obtiene la matriz de confusión para los resultados para split1-split0 y split0_split1. A continuación, se hace la media de estas matrices para obtenir una matriz que sea la media. Comparando estas últimas matrices de confusión se puede determinar cual es el modelo que mejor efectua su trabajo. 
 
-Eslos criterios q definiran las mjero puesta en servicio seran los que tengan el maoyr num de aciertos (suma de los elem de la fiagona principal se la más alta) y cuya suma de eleemntos que quedan a ala drcha de la diagonal principal sea la ínima (quiere decir que mnenos falsos negativso de)
- escenarios, mejor matriz de consuion mejor, asociada al modelo x q ha resultado ser la mejor .
+Los criterios que definirán la mejor opción son:
+- mayor número de aciertos, la que tenga la suma más alta de los elementos de la diagonal principal.
+- menos falsos negativos, es decir, que la suma de los elementos que quedan a la derecha de la diagonal principal sea mínima.
 
 UNA VEZ ENTRENADOS EL MODELOS  MEDIANTE EL METOD 2FOLD VALIDATIO (HEMOS PASADO TRAIN DATASET COMO SPLIT 0 Y EL VALIDATION DATASET COMO SPLIT 1 ) se le pasa un test dataset que sera igual al validation dataset pero ordenado para evaluar si el modelo hace predicciones correctameent. Una vez obtenidos 
  14
@@ -135,16 +136,12 @@ LA EVALUACION FINALIZA OBTENIENDO LAS MATRICES DE CONFUSIONS PARA CADA UNA DE LO
 
 
 
-### Entrenamiento y Validación del modelo
-
-El modelo definido ahora se entrena con la función **fit()**. Evaluamos su rendimiento, calculando la matriz de confusión y las métricas exactitud (Accurary) y precisión (Precision).
-
 ![cm_CNN3_m](https://user-images.githubusercontent.com/87124850/176322215-bc6f241f-753f-41ec-a78a-c56ac07f9b82.png)
 Ejemplo de matriz de confusión del modelo CNN3 en forma de mapa de calor.
 
-### Resultados y conclusiones
-a discutir 
+
+COMPARACION DE LOS 3 CASOS
 
 ![2C_m](https://user-images.githubusercontent.com/87124850/176498083-4e82a43b-ab58-45f8-9b61-16b1067c8458.PNG)
 
-COMPARACION DE LOS 3 CASOS
+
