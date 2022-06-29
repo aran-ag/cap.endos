@@ -26,9 +26,15 @@ En terminos generales, se aplican 6 estructuras distintas de redes neuronales. P
 
 Finalmente, los resultados generados se comparán mediante matrices de confusión.
 
-<img width="460" alt="2022-06-23 15_17_06-Image classification using CNN" src="https://user-images.githubusercontent.com/87124850/175827498-a19bc99f-7d95-4a5b-abd9-f77617f72624.png">
 
+
+
+<p align="center">
+<img width="460" alt="2022-06-23 15_17_06-Image classification using CNN" src="https://user-images.githubusercontent.com/87124850/175827498-a19bc99f-7d95-4a5b-abd9-f77617f72624.png">
+</p>
+<p align="center">
 Fases communes de toda Red Neuronal Convolucional
+</p>
 
 Pasos seguidos durante el proceso:
 
@@ -55,8 +61,13 @@ El conjunto de datos _Kvasir-Capsule_ esta dividido en tres partes: imágenes et
 
 Del dataset orginal proporcionado, tal y como se describe anteriormente, el grupo _"videos etiquetados"_ contiene 47,238 frames categorizados por un profesional, que son los mismos encontrados en el grupo _"imágenes etiquetadas"_. Con lo que se concluye que el resto de datos de _"videos etiquetados"_ contiene información de tejido sin anomalías (mucosas, estructuras anatómicas, ...) y, por ello, _"imágenes etiquetadas"_ será nuestro conjunto de datos a trabajar. 
 
+
+<p align="center">
 ![image](https://user-images.githubusercontent.com/87124850/175823080-f8b023b2-8046-4d15-927c-a5a26c49dfbe.png)
+</p>
+<p align="center">
 Muestras de las imágenes que contiene el dataset
+</p>
 
 La carpeta _"videos_sin_etiquetar"_ se descarta debido a que la información que contiene es poco útil para métodos de aprendizage supervisado, que es el que usamos en este caso.
 
@@ -81,12 +92,12 @@ Los pasos a realizar por este pocesador de iméges es:
 
 Con este procesado se genera un array que contiene las imágenes con sus etiquetas asociadas, obteniendo un conjunto de datos listo para pasarlo por las distintas estructuras de las redes neuronales.
 
-
+<p align="center">
 ![imagenes pretatadas](https://user-images.githubusercontent.com/87124850/176514794-2a360d03-3ad4-45d5-8562-8e73fd5727d7.PNG)
-
-
+</p>
+<p align="center">
 Ejemplo del resultado de preprocesar una imágen mediante los pasos indicados.
-
+</p>
 
 ## Arquitectura de los modelos a aplicar
 
@@ -96,10 +107,12 @@ Se emplean dos modelos principales:
 
 - **CNN**. Red Neuronal convolucional. Se trabajará con 4 estructuras de CNN (CNN1, CNN2, CNN3 y CNN4), los cuales difieren entre ellos únicamente en el número de veces que se aplican las _capas de convolución_ y _pooling_ y el número filtros de cada capa. Se empieza en la CNN1 con 32 filtros.
 
-
+<p align="center">
 ![02_network_flowchart original](https://user-images.githubusercontent.com/87124850/175817555-0e47f2f5-55a9-4157-ac28-86008541ebb7.png)
-            Ejemplo de una CNN.
-
+ </p>
+<p align="center"> 
+Ejemplo de una CNN.
+</p>
 
 El modelo general de la CNN aplicada esta compuesta por varias capas, en este caso las hemos defininido como:
 1. __Input Layer__, capa que define el número de neuronas que tendrá la primera capa en función de la resolución de cada imagen. 
@@ -149,3 +162,6 @@ COMPARACION DE LOS 3 CASOS
 ![2C_m](https://user-images.githubusercontent.com/87124850/176498083-4e82a43b-ab58-45f8-9b61-16b1067c8458.PNG)
 
 
+
+<p align="center"> 
+</p>
