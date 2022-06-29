@@ -6,20 +6,22 @@ En este projecto se plantea poder, dado un video de una exploración endoscópic
 Dado que ciertas patologías son menos probables de ser encontradas en exploraciones, la cantidad de los ejemplos de algunas anomalías esta desbalanceada respecto de otras. Por ejemplo, se tienen 55 imágenes de pólipos en comparación con las 12 imágenes para Blood Hematin. 
 
 
-Para resolver este reto se ha elegido un método de aprendizaje supervisado conocido como Redes Neuronales. Éstas estan consideradas como muy buenos clasificadores. De entre los diferentes tipos que hay se ha escogido trabajar con Redes Neuronales Densas  y Redes Neuronales Convolucionales. Cabe resaltar que en _Kvasir-Capsule_ utilizaron un modelo ResNet(Residual Network) y por ello hemos querido probar otros tipos de redes neuronales.
+Para resolver este reto se ha elegido un método de aprendizaje supervisado conocido como Redes Neuronales. Éstas estan consideradas como muy buenos clasificadores. De entre los diferentes tipos que hay se ha escogido trabajar con Redes Neuronales Densas  y Redes Neuronales Convolucionales. Cabe resaltar que en _Kvasir-Capsule_ utilizaron un modelo ResNet(Residual Network) y, por ello, hemos querido probar otros tipos de redes neuronales.
 
 Las **Redes Neuronales Densas (DNN)** son redes en las que todas las neuronas de una capa están conectadas a todas las neuronas de la siguiente. Son eficaces en cuanto al tratamiento de información porque cada neurona dispone de más datos para tratar, pero a su vez, es más lenta a la hora de procesar los datos. En este caso, al no implementar convoluciones no es capaz de definir formas y colores, con lo que no es aplicable al objetivo planteado. Sin embargo, se cree que es interesante presentar esta estructura para hacer una comparativa con las CNN. Se aplican dos estructuras de DNN, las cuales se etiquetan como D1 y D2.
 
 Las **Redes Neuronales Convolucionales (CNN)**, son modelos multicapa, que utilizan una operación matemática llamada convolución para el procesamiento de los datos. Por ello, son útiles para trabajar con imágenes ya que si que detectan formas y colores. Generalmente las CNN, toman las imágenes como input, asignándole importancia a ciertos elementos y así, poder diferenciar unas de otras. Se probarán 4 estructuras distintas de CNN: CNN1, CNN2, CNN3 y CNN4. Éstas se diferencian en el número de repeticiones de las capas de _convolución_ y _pooling_ que presentan en la estructura.
 
-Estas estructuras se testearán en los 3 escenarios distintos que se han generados a part. Unos donde hay 14 categorías, 10 categorías y 2 categorías. 
+Estas estructuras se testearán en los 3 escenarios distintos que se han generados. Estos escenarios contemplan las imágenes categorizadas en grupos de 14, 10 y 2.
 
-Al igual que _Kvasir-Capsule_ nos planteamos aplicar una metodología de **2Fold cross-validation**, que consiste en coger el conjunto  de datos y dividirlo en 2 partes iguales. Para este caso hemos decidido que esta partición sea en 2 categorías, _Split1_ y _Split0_, que contienen el 50% del total cada una. 
+Al igual que _Kvasir-Capsule_ nos planteamos aplicar una metodología de **2Fold cross-validation**, que consiste en coger el conjunto  de datos y dividirlo en 2 partes iguales. Para este caso hemos decidido que esta partición sea en _Split1_ y _Split0_, y que contengan cada una contenga el 50% del total del dataset. Estas agrupaciones serán usadas para entrenar y validar las estructuras de redes neuronales propuestas. Se entrenará con _Split 0_ y se validará con _Split1_ y, viceversa.
+ 
+ ___DETALLE DE LAS CATEGORÍAS___
 
 
 3 CODIFGOS DISTINOTS PARA CADA ESCENARIO, CADA CÓDIGO CONTIENE 
 
-Con lo que, en terminos generales, se aplican 6 estructuras distintas de redes neuronales. ESTRUC DISTINTAS DE REDES NEURONALES algoritmos a cada set de datos preprocesados. Para evaluar y comparar estos modelos se usará el termino de _validación cruzada TwoFold_, método que separa los datos en 2 subsets, de manera aleatória EN PORPOR A LA. En nuestro caso, el conjunto de datos de trabajo es divido en sano, _00Sano_, y anomalias, _01Anomalias. Éstos a su vez son separados en _Train_ y _Test_, en cada una de estas subcarpetas las imágenes se encuentran categorizadas por el tipo de hallazgo. La separación en _Train_ y _Test_ ha sido del mismo peso para cada uno.
+En terminos generales, se aplican 6 estructuras distintas de redes neuronales. Para evaluar y comparar estos modelos se usará el termino de _validación cruzada TwoFold_, método que separa los datos en 2 subsets, de manera aleatória EN PORPOR A LA. En nuestro caso, el conjunto de datos de trabajo es divido en sano, _00Sano_, y anomalias, _01Anomalias. Éstos a su vez son separados en _Train_ y _Test_, en cada una de estas subcarpetas las imágenes se encuentran categorizadas por el tipo de hallazgo. La separación en _Train_ y _Test_ ha sido del mismo peso para cada uno.
 
 
 Finalmente, los resultados generados se comparán mediante matrices de confusión.
@@ -79,7 +81,9 @@ Los pasos a realizar por este pocesador de iméges es:
 
 Con este procesado se genera un array que contiene las imágenes con sus etiquetas asociadas, obteniendo un conjunto de datos listo para pasarlo por las distintas estructuras de las redes neuronales.
 
+
 ![imagenes pretatadas](https://user-images.githubusercontent.com/87124850/176514794-2a360d03-3ad4-45d5-8562-8e73fd5727d7.PNG)
+
 
 Ejemplo del resultado de preprocesar una imágen mediante los pasos indicados.
 
