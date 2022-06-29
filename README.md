@@ -152,16 +152,19 @@ COMO OBSERVAMOS LA MATRIZ DA
 LA EVALUACION FINALIZA OBTENIENDO LAS MATRICES DE CONFUSIONS PARA CADA UNA DE LOS MODELOS PROBADOS Y SE COMPARA LA MEDIA DE LAS MATRICES OBTENIDAS PARA EL CASO SPLIT0-SPLIT1 Y SPLIT1-O
 
 
-
+<p align="center"> 
 ![cm_CNN3_m](https://user-images.githubusercontent.com/87124850/176322215-bc6f241f-753f-41ec-a78a-c56ac07f9b82.png)
+ </p>
+ <p align="center"> 
 Ejemplo de matriz de confusión del modelo CNN3 en forma de mapa de calor.
-
+</p>
 
 COMPARACION DE LOS 3 CASOS
 
 ![2C_m](https://user-images.githubusercontent.com/87124850/176498083-4e82a43b-ab58-45f8-9b61-16b1067c8458.PNG)
 
 
+![14C_m](https://user-images.githubusercontent.com/87124850/176560080-3e6b10fe-aaf8-4cd5-895e-a0ed16b038c6.JPG)
 
 <p align="center"> 
 </p>
