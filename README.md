@@ -137,3 +137,4 @@ Ejemplo de matriz de confusión del modelo CNN3 en forma de mapa de calor.
 
 ![2C_m](https://user-images.githubusercontent.com/87124850/176498083-4e82a43b-ab58-45f8-9b61-16b1067c8458.PNG)
 
+
