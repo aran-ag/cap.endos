@@ -6,18 +6,18 @@ En este projecto se plantea poder, dado un video de una exploración endoscópic
 
 Para resolver este reto se ha elegido usar dos tipos de Redes Neuronales, las Densas y las Convolucionales. E implementarlas sobre el conjunto de datos previamente preprocesado. 
 
-Las **Redes Neuronales Densas (DNN)** son redes en las que todas las neuronas de una capa están conectadas a todas las neuronas de la siguiente. Son eficaces en cuanto al tratamiento de información porque cada neurona dispone de más datos para tratar, pero a su vez, es más lenta a la hora de procesar los datos. Para nuestro caso, al no implementar convoluciones no es capaz de definir formas y colores, con lo que no es aplicable al objetivo planteado. Sin embargo, creemos que es interesante presentarlo. Aplicaremos 2 clases, D1 y D2.
+Las **Redes Neuronales Densas (DNN)** son redes en las que todas las neuronas de una capa están conectadas a todas las neuronas de la siguiente. Son eficaces en cuanto al tratamiento de información porque cada neurona dispone de más datos para tratar, pero a su vez, es más lenta a la hora de procesar los datos. Para nuestro caso, al no implementar convoluciones no es capaz de definir formas y colores, con lo que no es aplicable al objetivo planteado. Sin embargo, creemos que es interesante presentarlo. Aplicaremos 2 tipos de DNN, D1 y D2.
 
 
-Las **Redes Neuronales Convolucionales (CNN)**, modelos multicapa, utilizan la operación de convolución como base para el
-procesamiento de los datos. Dentro de esta red, existen matrices llamadas
-filtros que detectan, a su vez, distintos tipos de características dentro de los datos que se quieren procesar. Siendo capaces de detectar vordes, formas y colores. Aplicaremos 4 clases de CNN, diferenciandose entre ellas por el número de repeticiones de las capas Convolucional y Pooling. CNN1, CNN2, CNN3 y CNN4 
+Las **Redes Neuronales Convolucionales (CNN)**, modelos multicapa, utilizan la operación de convolución como base para el procesamiento de los datos. Por ello, son útiles para trabajar con imágenes. Generalmente, toman las imágenes como input, asignándole importancia a ciertos elementos y, así poder diferenciar unas de otras. Se probarán 4 tipos de CNN: CNN1, CNN2, CNN3 y CNN4. Estas se diferencian en el número de repeticiones de las capas de _convolución_ y _pooling_. 
 
-Seguidamente, se compararán los resultados generados por estos modelos mediantes matrices de confusión.
+Estos algoritmos se implementarán sobre un conjunto de datos preprocesado. Cabe decir que se realizan 3 prepocessado diferentes obteniendo 3 sets de datos. Estos estan organizados en 2, 10 y 14 categorías.
 
-El método de validación aplicado para comparar los modelos es el TwoFold. Por ello, los datos seleccionados se han separado en dos subsets, _Split0_ y _Split1_, de manera aleatória. Se entrena con el _Split0_ y se valida con _Split1_ y viceversa.
+Con lo que, en terminos generales, se aplican 6 algoritmos a cada set de datos preprocesados. Para evaluar y comparar estos modelos se usará el termino de validación TwoFold, método que separa los datos en 2 subsets, de manera aleatória. En nuestro caso, el conjunto de datos de trabajo es divido en sano, _00Sano_, y anomalias, _01Anomalias. Estos a su vez en _Train_ y _Test_. La idea es entrenar con ______???__________
 
+( los datos seleccionados se han separado en dos subsets, _Split0_ y _Split1_, de manera aleatória. Se entrena con el _Split0_ y se valida con _Split1_ y viceversa.)
 
+Finalmente se resultados generados con cada algoritmo se comparán mediante matrices de confusión.
 
 <img width="460" alt="2022-06-23 15_17_06-Image classification using CNN" src="https://user-images.githubusercontent.com/87124850/175827498-a19bc99f-7d95-4a5b-abd9-f77617f72624.png">
 
