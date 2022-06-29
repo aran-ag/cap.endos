@@ -101,11 +101,10 @@ El modelo general de la CNN aplicada esta compuesta por varias capas, en nuestro
 1. __Input Layer__, capa que define el número de neuronas que tendrá la primera capa en función de la resolución de cada imagen. 
 2. __Convolutional Layer__, capa formada por:
 _Convolutional layer_ mediante la aplicación de esta técnica se detecta la presencia de rasgos característicos, tanto geometricos y cromáticos, hacieno un mapa de ellas.
-- _Polling layer_, peración que recibe el mapa de características proviniente de la capa convolucional y lo reduce en dimensionalidad conservando     las características esenciales.
+_Polling layer_, peración que recibe el mapa de características proviniente de la capa convolucional y lo reduce en dimensionalidad conservando     las características esenciales.
 3. __Output Layer__
-            3. ds
-En todos los casos se ha aplicado la capa de activación _ReLu_(Rectified Linear Units) en todas las capas intermedias y, 
-_Softmax_ para todos los Output Layers.
+       
+En todos los casos se ha aplicado la capa de activación _ReLu_(Rectified Linear Units) en todas las capas intermedias y _Softmax_ para todos los Output Layers.
   
 ### Enumeración de las librerías usadas
 - Numpy
@@ -115,13 +114,14 @@ _Softmax_ para todos los Output Layers.
 - os
 
 
-
 ### RESULTADOS
 
-Una vez entrenandos los modelos mediante el método 2Fold cross-validation (hemos pasado train dataset como _split0_ y el validation dataset como _split1_) se le pasa un dataset que será igual al validation dataset pero ordenado para evaluar si el modelo 
+Una vez entrenandos los modelos mediante el método 2Fold cross-validation (hemos pasado train dataset como _split0_ y el validation dataset como _split1_) se le pasa un dataset que será igual al validation dataset pero ordenado para evaluar si el modelo hace predicciones correctamente. Una vez obtenidos los resultados de las predicciones se obtiene la matriz de confusión para los resultados para los caos split1-split0 y para split0_split1. A continuación, luego hacemos la media de estas matrices para obtenir una matriz que sea la media. Comparando estas matrices de confusión se puede determinar cual es el modelo que mejor efectua su trabajo. 
 
-UNA VEZ ENTRENADOS EL MODELOS  MEDIANTE EL METOD 2FOLD VALIDATIO (HEMOS PASADO TRAIN DATASET COMO SPLIT 0 Y EL VALIDATION DATASET COMO SPLIT 1 ) se le pasa un test dataset que sera igual al validation dataset pero ordenado para evaluar si el modelo hace predicciones correctameent. Una vez obtenidos los resultados de las predicciones se obtienes la matriz de confusion para los resuttados para los caos split1-split0 y para split0_split1 luego hacemos la media de estas marices para obtenir una matirz que es la media.  y comparando estas matrices de confusion se puede determinr cual es el modelo q mejor efectua su trabajo. los criterios q definiran las mjero puesta en servicio seran los que tengan el maoyr num de aciertos (suma de los elem de la fiagona principal se la más alta) y cuya suma de eleemntos que quedan a ala drcha de la diagonal principal sea la ínima (quiere decir que mnenos falsos negativso de)
+Eslos criterios q definiran las mjero puesta en servicio seran los que tengan el maoyr num de aciertos (suma de los elem de la fiagona principal se la más alta) y cuya suma de eleemntos que quedan a ala drcha de la diagonal principal sea la ínima (quiere decir que mnenos falsos negativso de)
  escenarios, mejor matriz de consuion mejor, asociada al modelo x q ha resultado ser la mejor .
+
+UNA VEZ ENTRENADOS EL MODELOS  MEDIANTE EL METOD 2FOLD VALIDATIO (HEMOS PASADO TRAIN DATASET COMO SPLIT 0 Y EL VALIDATION DATASET COMO SPLIT 1 ) se le pasa un test dataset que sera igual al validation dataset pero ordenado para evaluar si el modelo hace predicciones correctameent. Una vez obtenidos 
  14
  10
  2
