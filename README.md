@@ -131,9 +131,10 @@ Gráficando el valor del _accuracy_ a medida del paso de los epochs se puede sab
 ## Comparación de los 3 casos
 
 ![2C_m](https://user-images.githubusercontent.com/87124850/176498083-4e82a43b-ab58-45f8-9b61-16b1067c8458.PNG)
+2C
 
 ![14C_m](https://user-images.githubusercontent.com/87124850/176560080-3e6b10fe-aaf8-4cd5-895e-a0ed16b038c6.JPG)
-
+14C
 
 
 Matrices de confusión para:
