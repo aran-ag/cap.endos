@@ -15,7 +15,6 @@ Al igual que _Kvasir-Capsule_ nos planteamos aplicar una metodología de **2-Fol
 
 En definitiva, se generan 3 escenarios diferentes: 14C, 10C y 2C. A cada uno de ellos se aplican las 6 estructuras de redes neuronales comentadas.
 
- ___DETALLE DE LAS CATEGORÍAS___
 
 Finalmente, los resultados generados se comparan mediante matrices de confusión.
 
@@ -122,36 +121,49 @@ Los criterios que definirán la mejor opción son:
 Gráficando el valor del _accuracy_ a medida del paso de los epochs se puede saber si el modelo es eficiente y si existe algun posible sobreajuste.
 
 
+
+
 ## Comparación de los 3 casos
 
 ![14C_m](https://user-images.githubusercontent.com/87124850/176560080-3e6b10fe-aaf8-4cd5-895e-a0ed16b038c6.JPG)
+<p align="center"> 
 Figura 5. 14C
+</p>
 
 ![10C_m](https://user-images.githubusercontent.com/87124850/176570824-9e034ed7-5d19-4f37-a25b-43de02c9f152.PNG)
+<p align="center"> 
 Figura 6. 10C
-
+</p>
+ 
 ![2C_m (1)](https://user-images.githubusercontent.com/87124850/176571019-24ded0a6-48a2-452c-bdde-aea39c26898d.PNG)
+<p align="center"> 
 Figura 7. 2C
+</p>
 
-
-Matrices de confusión para:
+### Matrices de confusión para:
 
 **Escenario 14C:**
+
 ![Matriz_M_CNN3_14C](https://user-images.githubusercontent.com/87124850/176566104-45841298-6aa5-4b0f-b51b-f99da30af02b.png)
 <p align="center"> 
-Ejemplo de matriz de confusión del modelo CNN3 para el escenario 14C.
+Figura 8. Ejemplo de matriz de confusión del modelo CNN3 para el escenario 14C.
 </p>
+
 
 **Escenario 10C:**
+
 ![Matriz_M_CNN3_10C](https://user-images.githubusercontent.com/87124850/176566112-361f8838-7c8e-46c3-ac4b-535b2407c1a1.png)
 <p align="center"> 
-Ejemplo de matriz de confusión del modelo CNN3 para el escenario 10C.
+Figura 9. Ejemplo de matriz de confusión del modelo CNN3 para el escenario 10C.
 </p>
 
-**Escenario C:**
+
+**Escenario 2C:**
+
 ![Matriz_M_CNN3_2C](https://user-images.githubusercontent.com/87124850/176566121-78469cdf-c4a5-494b-9c54-379b01615bb2.png)
+
 <p align="center"> 
-Ejemplo de matriz de confusión del modelo CNN3 para el escenario 2C.
+Figura 10. Ejemplo de matriz de confusión del modelo CNN3 para el escenario 2C.
 </p>
 
 
