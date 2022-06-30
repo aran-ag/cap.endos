@@ -75,7 +75,7 @@ preprocessing_function = tf.keras.application.vgg16.preprocess_input
 - **Indicación de la ruta de origen de las imágenes**
 - **Reescalado**, definición del rescalado de las imágenes a 28x28 píxeles. 
 - **Categorización**, agrupamiento de las imágenes en 14, 10 y 2 categorías.
-- **Batch size**, se define el empaquetamiento de las imágenes salientes en 128 (2^7)
+- **Batch size**, definición del empaquetamiento de las imágenes salientes en 128 (2^7).
 
 Con este procesado se genera un array que contiene las imágenes con sus etiquetas asociadas, obteniendo un conjunto de datos listo para pasarlo por las distintas estructuras de las redes neuronales.
 
